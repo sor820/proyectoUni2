@@ -48,10 +48,17 @@ public class Simulador {
         private double capacidad;
         private String ubicacion;
 
+        // Constructor
+        public Vehiculo(String id, double capacidad, String ubicacion) {
+            this.id = id;
+            this.capacidad = capacidad;
+            this.ubicacion = ubicacion;
+        }
+
         // Métodos abstractos
         public abstract void moverse();
 
-        public abstract void cargar(Object carga);
+        public abstract void cargar();
 
         public abstract void descargar();
 
@@ -89,7 +96,7 @@ public class Simulador {
         public static class Auto extends Vehiculo implements Rodante, Combustion {
 
             public Auto(String id) {
-                this.setId(id);
+                super(id, 1000.0, "Almacén Principal"); // Ejemplo de valores por defecto
             }
 
             @Override
@@ -99,8 +106,8 @@ public class Simulador {
 
 
             @Override
-            public void cargar(Object carga) {
-                System.out.println("Auto cargando: " + carga.toString());
+            public void cargar() {
+                System.out.println("Auto cargando");
             }
 
 
@@ -126,7 +133,7 @@ public class Simulador {
          */
         public static class Dron extends Vehiculo implements Volador, Electrico, Autonomo {
             public Dron(String id) {
-                this.setId(id);
+                super(id, 5.0, "Base de Drones"); // Ejemplo de valores por defecto
             }
 
             @Override
@@ -135,7 +142,7 @@ public class Simulador {
             }
 
             @Override
-            public void cargar(Object carga) {
+            public void cargar() {
                 System.out.println("Dron cargando paquete ligero.");
             }
 
@@ -165,7 +172,7 @@ public class Simulador {
          */
         public static class Anfibio extends Vehiculo implements Rodante, Nadador {
             public Anfibio(String id) {
-                this.setId(id);
+                super(id, 500.0, "Muelle de Carga"); // Ejemplo de valores por defecto
             }
 
             @Override
@@ -174,7 +181,7 @@ public class Simulador {
             }
 
             @Override
-            public void cargar(Object carga) {
+            public void cargar() {
                 System.out.println("Anfibio cargando carga sellada.");
             }
 
@@ -199,7 +206,7 @@ public class Simulador {
          */
         public static class Submarino extends Vehiculo implements Nadador {
             public Submarino(String id) {
-                this.setId(id);
+                super(id, 2000.0, "Base Submarina"); // Ejemplo de valores por defecto
             }
 
             @Override
@@ -208,7 +215,7 @@ public class Simulador {
             }
 
             @Override
-            public void cargar(Object carga) {
+            public void cargar() {
                 System.out.println("Submarino cargando equipo submarino.");
             }
 
@@ -415,8 +422,8 @@ public class Simulador {
         carga1.setPeso(2.5);
         carga1.verificarSeguridad();
 
-        Mision mision1 = new Mision("Ciudad A", "Ciudad B", auto1);
-        EntregaUrgente mision2 = new EntregaUrgente("Puerto 1", "Isla 2", dron1, 3.0);
+        Mision mision1 = new Mision("Orizaba", "CDMX", auto1);
+        EntregaUrgente mision2 = new EntregaUrgente("USA", "Inglaterra", submarino1, 10.0);
 
         entornoSimulacion.agregarMision(mision1);
         entornoSimulacion.agregarMision(mision2);
